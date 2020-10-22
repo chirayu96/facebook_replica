@@ -1,13 +1,15 @@
 import smtplib
+from django.contrib import messages
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import *
 from .forms import UserRegistrationForm, UserLoginForm
 from django.contrib.auth.models import User
-from .models import Registration
+from .models import Registration,UserPost
 from django.conf import settings 
 from django.core.mail import send_mail 
-
+from django.contrib.auth import authenticate, login ,logout
+from django.shortcuts import get_object_or_404
 # class UserLogin(View):
 #     def get(self,request):
 #         return render(request,'facebook/facebook.html')
@@ -37,30 +39,47 @@ class UserRegistration(View):
            
             registration_obj = Registration.objects.create(user=user,
                 dob=form.data['dob'])
-            return redirect("/page/")
+            return redirect("/login/")
             # return request(request,'facebook/registration.html',{'form':form})
 
 
 class UserLogin(View):
     def get(self, request):
         form = UserLoginForm()
-        return render(request,"facebook/registration.html",{"login_form":form})
+        return render(request,"facebook/login.html",{"login_form":form})
 
 
     def post(self, request):
         form = UserLoginForm(request.POST or None)
         try:
             if form.is_valid():
-                # import pdb; pdb.set_trace()
-                username = form.cleaned_data.get("username")
-                password = form.cleaned_data.get("password")
+                username = request.POST['username']
+                password = request.POST['password']
                 user = authenticate(username=username, password=password)
+                login(request, user)
                 if user is not None:
-                    user = Registration.objects.get(user=user)
-                    return redirect("/page/")
+                    user = User.objects.get(pk=user.id)
+                    return redirect("/user-dashboard/"+str(user.id))
                 else:
                     msg="Incorect Username or Password"
-                    return render(request,"facebook/registration.html",{'msg': msg})
+                    return render(request,"facebook/login.html",{'msg': msg})
            
         except Exception as e:
-                return render(request,"facebook/registration.html",{'error':e,'form':form})
+                return render(request,"facebook/login.html",{'error':e,'login_form':form})
+
+class UserDashboard(View):
+    def get(self, request,pk):
+        user_obj = get_object_or_404(User, id=pk)
+        return render(request, 'facebook/facebook.html',{'user_obj':user_obj})
+
+class UserPostList(View):
+    def get(self,request):
+        post_list = UserPost.objects.filter(user=request.user.id)
+        return render(request,'facebook/user_post_list.html',{'post_list':post_list})
+      
+       
+class UserLogout(View):
+    def get(self,request):
+        logout(request)
+        messages.info(request,"Logout Successfully!!!!!!!")
+        return redirect("/login/")

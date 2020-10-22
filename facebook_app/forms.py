@@ -28,5 +28,5 @@ class UserLoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class':"row1", 'label':'Email or Phone'})
-        self.fields['password'].widget.attrs.update({'class':"row1",'label':'Password'})
+        self.fields['username'].widget.attrs.update({'class':"row1", 'placeholder':'Email or Phone'})
+        self.fields['password'].widget.attrs.update({'class':"row1",'placeholder':'Password'})

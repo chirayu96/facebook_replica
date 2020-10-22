@@ -313,32 +313,7 @@ margin-bottom: 10px;
 
 <div id="navwrapper">
   <div id="navbar"> <table class="tablewrapper">
-    <tr>
-      <form method="post">
-      {{msg}}
-      {{error}}
-        {% csrf_token %}
-        <td>{{login_form.username}}</td>
-        <td>{{login_form.password}}</td>
-      <!--<td class="row1">Email or Phone</td>
-      <td class="row1">Password</td>
-    </tr>
-    <tr>
-      <td><input type="text" class="inputtext">
-      </td>
-      <td><input type="text" class="inputtext">
-      </td> -->
-      <td>
-        <button type="submit" id="button" class="btn btn-primary">Login</button>
-        </td>
-      </form>
-    </tr>
-    <tr>
-      <td>
-        <div class="row2"><input type="checkbox" checked>Keep me logged in</div></td>
-      <td class="row2 h">Forgot your password?</td>
-  </table>
-    
+
     <h1 class="logowrapper">facebook</h1>
    
   </div>
@@ -391,21 +366,7 @@ margin-bottom: 10px;
         {{form.email}}
         {{form.password}}
         {{form.dob}}
-      
-
-        <!--<div class="formbox">
-        <input type="text" class="inputbody in1" placeholder="First name">
-        <input type="text" class="inputbody in1 fr" placeholder="Last name">
-        </div>
-        <div class="formbox">
-        <input type="text" class="inputbody in2" placeholder="Email or mobile number">
-        </div>
-        <div class="formbox">
-        <input type="text" class="inputbody in2" placeholder="Re-enter email or mobile number">
-        </div>
-        <div class="formbox">
-        <input type="text" class="inputbody in2" placeholder="New password">
-        </div> -->
+        
         <div class="formbox">
             <div class="fb1 why h">Why do I need to provide my birthday?</div></div>
             <div class="formbox">

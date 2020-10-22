@@ -8,3 +8,7 @@ class Registration(models.Model):
     dob= models.DateField(null=True, blank=True)
     def __str__(self):
         return str(self.user)
+
+class UserPost(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	post = models.CharField(max_length=100)
