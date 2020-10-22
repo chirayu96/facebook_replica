@@ -1,7 +1,22 @@
-
 <!DOCTYPE html>
 <html>
 <head>
+  {% include 'layout/navbar.html' %}
+  {% include 'layout/sidebar.html' %}
+
+      <!-- here -->
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/facebook.css
+' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.css' %}">
+
+        <meta http-equiv="content-type" content="text/html"> 
+        <title>Facebook Theme Demo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+       
+        <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -56,3 +71,8 @@ body {
  <input id="name" class="row-input" type="text" value="{{post.post}}" ></br></br>
 
 {%endfor%}
+</div>
+{% include 'layout/footer.html' %}
+</body>
+
+</html>

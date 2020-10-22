@@ -30,3 +30,7 @@ class UserLoginForm(forms.Form):
         super(UserLoginForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({'class':"row1", 'placeholder':'Email or Phone'})
         self.fields['password'].widget.attrs.update({'class':"row1",'placeholder':'Password'})
+
+
+class UserPostForm(forms.Form):
+    user_post = forms.CharField(max_length=505)

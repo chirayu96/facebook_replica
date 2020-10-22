@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import *
-from .forms import UserRegistrationForm, UserLoginForm
+from .forms import UserRegistrationForm, UserLoginForm,UserPostForm
 from django.contrib.auth.models import User
 from .models import Registration,UserPost
 from django.conf import settings 
@@ -70,11 +70,12 @@ class UserLogin(View):
 class UserDashboard(View):
     def get(self, request,pk):
         user_obj = get_object_or_404(User, id=pk)
-        return render(request, 'facebook/facebook.html',{'user_obj':user_obj})
+        post_list = UserPost.objects.filter(user=request.user)
+        return render(request, 'facebook/facebook.html',{'user_obj':user_obj,'post_list':post_list})
 
 class UserPostList(View):
     def get(self,request):
-        post_list = UserPost.objects.filter(user=request.user.id)
+        post_list = UserPost.objects.filter(user=request.user)
         return render(request,'facebook/user_post_list.html',{'post_list':post_list})
       
        
@@ -83,3 +84,19 @@ class UserLogout(View):
         logout(request)
         messages.info(request,"Logout Successfully!!!!!!!")
         return redirect("/login/")
+
+
+# class UserPostView(View): 
+#     def get(self, request):
+#         post_list = UserPost.objects.filter(user=request.user)
+#         return render(request, 'facebook/facebook.html',{'post_list':post_list})
+
+    # def post(self,request):
+    #     form = UserPostForm(request.POST)
+    #     if form.is_valid():
+    #         user = UserPost.objects.create(post=form.data['post'])
+    #         user.save()
+    #         return redirect("/user-dashboard/")
+    #     else:
+    #         form=UserPostForm()
+    #         return render(request,"facebook/dashboard.html")
