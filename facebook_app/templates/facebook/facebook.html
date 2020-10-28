@@ -1,9 +1,10 @@
 {% extends 'layout/base.html' %}
+
+
 {% load static %}
 <!--{% include 'layout/sidebar.html' %}-->
-
 {% block content %}
-                              
+                  
 <!-- content -->                      
 <div class="row">
   
@@ -27,7 +28,6 @@
             
             {{post.post}}
             
-            
             <hr>
             <form>
             <div class="input-group">
@@ -36,7 +36,15 @@
               </div>
               <input class="form-control" placeholder="Add a comment.." type="text">
             </div>
+            <div>
+
+            <a type="submit" class="btn btn-danger" href="/post-delete/{{ post.id }}">Delete</a>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <button><i class="fa fa-thumbs-up" style="font-size:36px"></i></button>
+
+          </div>
             </form>
+             <!--<fb:like layout="button_count" show_faces="false" width="450" font=""></fb:like> -->
             
           </div>
        </div>

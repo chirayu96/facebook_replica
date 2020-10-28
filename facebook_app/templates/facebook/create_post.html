@@ -1,11 +1,44 @@
+
 {% load static %}
 
 <div class="well"> 
            <form class="form-horizontal" role="form">
             <h4>What's New</h4>
              <div class="form-group" style="padding:14px;">
-              <textarea class="form-control" placeholder="Update your status"></textarea>
+              <textarea class="form-control post" placeholder="Update your status"></textarea>
             </div>
-            <button class="btn btn-primary pull-right" type="button">Post</button><ul class="list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li></ul>
+            <button class="btn btn-primary pull-right post-btn" type="button">Post</button><ul class="list-inline"><li><a href=""><i class="glyphicon glyphicon-upload"></i></a></li><li><a href=""><i class="glyphicon glyphicon-camera"></i></a></li><li><a href=""><i class="glyphicon glyphicon-map-marker"></i></a></li></ul>
           </form>
-      </div>
+</div>
+{% block js %}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script>
+
+$(document).ready(function() {
+        // Add new robot Card
+        $(document).on("click", ".post-btn", function() {
+        	
+            var post =  $(".post").val();
+            $.ajax({
+                type: "POST",
+                url: '/add-post/',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'post': post,
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status == true) {
+                        alert(data.message);
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+    });
+
+
+</script>
+{% endblock js %}

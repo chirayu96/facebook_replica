@@ -32,5 +32,3 @@ class UserLoginForm(forms.Form):
         self.fields['password'].widget.attrs.update({'class':"row1",'placeholder':'Password'})
 
 
-class UserPostForm(forms.Form):
-    user_post = forms.CharField(max_length=505)

@@ -1,0 +1,95 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color:#2E8B57;
+}
+
+.topnav a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #E6E6FA;
+  color: black;
+}
+
+.topnav a.active {
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+
+
+table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+#t01 tr:nth-child(even) {
+   background-color: #dddddd;
+}
+#t01 tr:nth-child(odd) {
+ background-color:#E6E6FA;
+}
+#t01 th {
+  background-color: black;
+  color: white;
+}
+
+
+</style>
+</head>
+<body>
+<div style="padding-left:100px">
+<h2>Friend Request</h2>
+<table id="t01">
+  <tr>
+    <th>Name</th>
+    <th>Accept</th>
+    <th>Reject</th>
+  </tr>
+  {%for i in pending_request%}
+  <tr id="t01">
+    <td>{{i.user}}</td>
+    
+     <td><button><a style="color: #000000" class="button button1" class="btn btn-primary" href="{% url 'facebook_app:add_friends' i.pk %}">Accept</a></button></td> 
+
+    <td><button><a style="color: #000000" class="button button1" class="btn btn-primary" href="#">Reject</a></button></td>
+
+
+
+  <!-- <td><button><a style="color: #000000" class="button button1" class="btn btn-primary"
+ href="{% url 'facebook_app:change_friends' pk=i.pk %}">Add Friend</a></button></td> -->
+  </tr>
+{%endfor%}
+</table>
+</div>
+</body>
+
+{%endblock%}
