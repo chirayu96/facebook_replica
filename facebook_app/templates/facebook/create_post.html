@@ -1,4 +1,3 @@
-
 {% load static %}
 
 <div class="well"> 
@@ -17,7 +16,7 @@
 $(document).ready(function() {
         // Add new robot Card
         $(document).on("click", ".post-btn", function() {
-        	
+            
             var post =  $(".post").val();
             $.ajax({
                 type: "POST",

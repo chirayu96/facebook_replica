@@ -1,6 +1,4 @@
 {% extends 'layout/base.html' %}
-
-
 {% load static %}
 <!--{% include 'layout/sidebar.html' %}-->
 {% block content %}
@@ -17,17 +15,14 @@
   <!-- main col right -->
   <div class="col-sm-7">
        
-    {%for post in post_list%}
-
+    {%for post in post_list %}
        <div class="panel panel-default">
          <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>My Post</h4></div>
           <div class="panel-body">
             <img src="{% static 'assets/img/150x150.gif' %}" class="img-circle pull-right">
             <div class="clearfix"></div>
             <hr>
-            
-            {{post.post}}
-            
+              {{post.post}} 
             <hr>
             <form>
             <div class="input-group">
@@ -38,21 +33,86 @@
             </div>
             <div>
 
-            <a type="submit" class="btn btn-danger" href="/post-delete/{{ post.id }}">Delete</a>
+           <a type="submit" class="btn btn-danger" href="/post-delete/{{ post.id }}">Delete</a>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <button><i class="fa fa-thumbs-up" style="font-size:36px"></i></button>
-
-          </div>
-            </form>
-             <!--<fb:like layout="button_count" show_faces="false" width="450" font=""></fb:like> -->
+            
+           <!-- <button><a data-id="{{ post.id}}" 
+            id="delete_id" class="btn btn-danger del_btn">Deleteeeee</a></button> -->
             
           </div>
+            </form>
+          </div>
        </div>
-{% endfor %}
-    
-  </div>
-</div><!--/row-->
+{% endfor %}  
+ 
+{%for post in friend_post %}
+       <div class="panel panel-default">
+         <div class="panel-heading"><a href="#" class="pull-right">View all</a> <h4>My Post</h4></div>
+          <div class="panel-body">
+            <img src="{% static 'assets/img/150x150.gif' %}" class="img-circle pull-right">
+            <div class="clearfix"></div>
+            <hr>
+              {{post.post}} 
+            <hr>
+            <form>
+            <div class="input-group">
+              <div class="input-group-btn">
+              <button class="btn btn-default">+1</button><button class="btn btn-default"><i class="glyphicon glyphicon-share"></i></button>
+              </div>
+              <input class="form-control" placeholder="Add a comment.." type="text">
+            </div>
+            <div>
 
+           <a type="submit" class="btn btn-danger" href="/post-delete/{{ post.id }}">Delete</a>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            
+           <!-- <button><a data-id="{{ post.id}}" 
+            id="delete_id" class="btn btn-danger del_btn">Deleteeeee</a></button> -->
+            
+          </div>
+            </form>
+          </div>
+       </div>
+{% endfor %}  
+  </div>
+</div>
+
+
+
+</div>
 {% endblock %}
 
+<!--{% block js %}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+
+
+<script>
+
+$(document).ready(function() {
+        // Add new robot Card
+        $(document).on("click", ".del_btn", function() {
+            var id = $(this).data("id")
+            // rqst_type = $(this).data("delete");
+            debugger
+            $.ajax({
+                type: "POST",
+                url: '/post-delete/'+id+'/',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    // 'rqst_type': "delete",
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status == true) {
+                        alert(data.message);
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock js %}-->
 

@@ -10,9 +10,6 @@ class Registration(models.Model):
     def __str__(self):
         return str(self.user)
 
-class UserPost(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.CharField(max_length=100)
 
 
 class Friends(models.Model):
@@ -25,6 +22,10 @@ class Friends(models.Model):
     def __str__(self):
         return str(self.user)
 
+class UserPost(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.CharField(max_length=100)
+    friend_post = models.ForeignKey(Friends, on_delete=models.CASCADE,related_name='friends_post',null=True)
 
 # class AcceptRequest(models.Model):
 

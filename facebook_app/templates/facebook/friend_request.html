@@ -1,8 +1,7 @@
-{% extends 'layout/base.html' %}
 {% load static %}
 {% block content %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 <head>
 <style>
 body {
@@ -77,19 +76,79 @@ th, td {
   {%for i in pending_request%}
   <tr id="t01">
     <td>{{i.user}}</td>
-    
-     <td><button><a style="color: #000000" class="button button1" class="btn btn-primary" href="{% url 'facebook_app:add_friends' i.pk %}">Accept</a></button></td> 
-
-    <td><button><a style="color: #000000" class="button button1" class="btn btn-primary" href="#">Reject</a></button></td>
-
-
-
-  <!-- <td><button><a style="color: #000000" class="button button1" class="btn btn-primary"
- href="{% url 'facebook_app:change_friends' pk=i.pk %}">Add Friend</a></button></td> -->
+    <td><button><a style="color: #000000" class="btn btn-primary accept"
+      id ="accpt_btn" data-id="{{i.pk}}" value="add">Accept</a></button></td> 
+    <td><button><a style="color: #000000" data-id="{{i.pk}}" id ="reject_btn" class=" btn btn-primary reject">Reject</a></button></td>
   </tr>
 {%endfor%}
 </table>
 </div>
 </body>
-
 {%endblock%}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" type="text/javascript"></script>
+
+
+<script>
+
+$(document).ready(function() {
+        // Add new robot Card
+        $(document).on("click", ".accept", function() {
+          // debugger
+            // var post =  $(".post-btn").val();
+            var id = $(this).data("id"),
+            rqst_type = $(this).data("accept");
+            $.ajax({
+                type: "POST",
+                url: '/add-friends/'+id+'/',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'rqst_type': "accept",
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status == true) {
+                        alert(data.message);
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+    });
+
+
+$(document).ready(function() {
+        // Add new robot Card
+        $(document).on("click", ".reject", function() {
+          // debugger
+            // var post =  $(".post-btn").val();
+            var id = $(this).data("id"),
+            rqst_type = $(this).data("reject");
+            $.ajax({
+                type: "POST",
+                url: '/add-friends/'+id+'/',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'rqst_type': "reject",
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.status == true) {
+                        alert(data.message);
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+    });
+
+</script>
+{% endblock js %}
+
+
+
